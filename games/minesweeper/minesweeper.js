@@ -1,5 +1,8 @@
+// define global variable grid
+var grid;
+
 function generateGrid(length, width, mines) {
-  var grid = [];
+  grid = [];
   // create a grid
   for (var i = 0; i < length; i++) {
     grid.push([]);
@@ -13,11 +16,10 @@ function generateGrid(length, width, mines) {
     var y = Math.floor(Math.random() * width);
     grid[x][y] = -1;
   }
-  return grid;
 }
 
-function createTable() {
-  var grid = generateGrid(10, 10, 10);
+function createTable(length, width, mines) {
+  generateGrid(length, width, mines);
   var table = document.createElement("table");
   for (var i = 0; i < grid.length; i++) {
     var row = document.createElement("tr");
@@ -52,12 +54,33 @@ function renderTable(table) {
 function handleClick(event) {
   var cell = event.target;
   var isMine = cell.getAttribute("data-mine") === "true";
+  var x = parseInt(cell.getAttribute("data-x"));
+  var y = parseInt(cell.getAttribute("data-y"));
 
   if (isMine) {
     cell.textContent = "X";
   } else {
-    cell.textContent = "O";
+    var count = countAdjacentMines(x, y);
+    cell.textContent = count;
   }
 
   cell.classList.remove("not-revealed"); // remove the not-revealed class from the cell
+}
+
+function countAdjacentMines(x, y) {
+  var count = 0;
+  for (var i = x - 1; i <= x + 1; i++) {
+    for (var j = y - 1; j <= y + 1; j++) {
+      if (
+        i >= 0 &&
+        i < grid.length &&
+        j >= 0 &&
+        j < grid[0].length &&
+        grid[i][j] === -1
+      ) {
+        count++;
+      }
+    }
+  }
+  return count;
 }

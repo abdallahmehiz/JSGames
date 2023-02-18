@@ -11,6 +11,17 @@
   </head>
   <body>
     <h1>Minesweeper</h1>
-    <script src="minesweeper.js"></script>
+    <div class="menu">
+      <button class="new-game" onclick="startGame()">New Game</button>
+    </div>
+    <div class="game">
+      <div class="grid" id="game"></div>
+    </div>
+    <script>
+      function startGame() {
+        var table = createTable();
+        renderTable(table);
+      }
+    </script>
   </body>
 </html>

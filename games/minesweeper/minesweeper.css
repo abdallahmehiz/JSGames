@@ -18,3 +18,11 @@ td {
   background-color: white;
   margin: 1px;
 }
+
+.flagged {
+  background-color: red;
+}
+
+.question-marked {
+  background-color: yellow;
+}

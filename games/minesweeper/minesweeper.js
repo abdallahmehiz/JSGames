@@ -38,6 +38,7 @@ function createTable(length, width, mines) {
       }
       cell.classList.add("not-revealed"); // add not-revealed class to the cell
       cell.addEventListener("click", handleClick);
+      cell.addEventListener("contextmenu", handleRightClick);
       row.appendChild(cell);
     }
     table.appendChild(row);
@@ -72,6 +73,22 @@ function handleClick(event) {
     if (count === 0) {
       clearAdjacentZeros(x, y);
     }
+  }
+}
+
+function handleRightClick(event) {
+  event.preventDefault();
+  var cell = event.target;
+  if (
+    !cell.classList.contains("flagged") &&
+    !cell.classList.contains("question-marked")
+  )
+    cell.classList.add("flagged"); // add flagged class to the cell
+  else if (cell.classList.contains("flagged")) {
+    cell.classList.add("question-marked");
+    cell.classList.remove("flagged");
+  } else if (cell.classList.contains("question-marked")) {
+    cell.classList.remove("question-marked");
   }
 }
 

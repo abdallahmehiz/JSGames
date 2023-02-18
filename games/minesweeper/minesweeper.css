@@ -26,6 +26,9 @@ th {
 .icon-bomb {
   color: #dcd8c0;
 }
+.revealed {
+  color: #454138;
+}
 
 .hidden {
   display: none;

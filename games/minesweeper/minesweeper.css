@@ -1,28 +1,27 @@
 table {
   border-collapse: collapse;
+  margin: auto;
+  border-spacing: 1rem;
 }
 
 tr {
   display: table-row;
 }
 
-td {
-  display: table-cell;
-  width: 20px;
-  height: 20px;
+td,
+th {
+  display: inline-block;
+  height: 1rem;
+  width: 1rem;
   text-align: center;
-  border: 1px solid black;
+  margin: 2px;
 }
 
 .not-revealed {
-  background-color: white;
-  margin: 1px;
+  background-color: #454138;
 }
 
-.flagged {
-  background-color: red;
-}
-
-.question-marked {
-  background-color: yellow;
+.icon-flag,
+.icon-question {
+  color: #dcd8c0;
 }

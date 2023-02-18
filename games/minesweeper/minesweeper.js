@@ -31,10 +31,8 @@ function createTable(length, width, mines) {
       // set the data-value attribute to X if the cell is a mine and O otherwise
       if (grid[i][j] === -1) {
         cell.setAttribute("data-mine", "true");
-        cell.setAttribute("data-value", "X");
       } else {
         cell.setAttribute("data-mine", "false");
-        cell.setAttribute("data-value", "O");
       }
       cell.classList.add("not-revealed"); // add not-revealed class to the cell
       cell.addEventListener("click", handleClick);
@@ -54,10 +52,13 @@ function renderTable(table) {
 
 function handleClick(event) {
   // Prevent click if the game is over
-  if (gameOver) {
+  if (gameOver) return;
+  if (
+    event.target.classList.contains("icon-flag") ||
+    event.target.classList.contains("icon-question") ||
+    event.target.classList.contains("revealed") // this one is for optimization
+  )
     return;
-  }
-
   var cell = event.target;
   var isMine = cell.getAttribute("data-mine") === "true";
   var x = parseInt(cell.getAttribute("data-x"));
@@ -66,10 +67,11 @@ function handleClick(event) {
   if (event.button === 0) {
     // left click
     if (isMine) {
-      cell.textContent = "X";
       cell.classList.remove("not-revealed");
-      cell.classList.add("revealed", "mine");
+      cell.classList.add("revealed", "mine", "icon-bomb");
       gameOver = true;
+      disableCells();
+      revealMines();
       alert("You lose!");
     } else {
       var count = countAdjacentMines(x, y);
@@ -85,30 +87,34 @@ function handleClick(event) {
   } else if (event.button === 2) {
     // right click
     event.preventDefault();
-    cell.classList.toggle("flagged");
+    cell.classList.toggle("icon-flag");
   }
 }
 
 function handleRightClick(event) {
   event.preventDefault();
+  if (gameOver) return;
+  if (event.target.classList.contains("revealed")) return;
+
   var cell = event.target;
   if (
-    !cell.classList.contains("flagged") &&
-    !cell.classList.contains("question-marked")
+    !cell.classList.contains("icon-flag") &&
+    !cell.classList.contains("icon-question")
   ) {
-    cell.classList.add("flagged");
+    cell.classList.add("icon-flag");
     mineCount--;
+    if (mineCount < 0) mineCount = 0;
     document.querySelector("#mine-count").textContent =
       mineCount + ` mines left`;
   } // add flagged class to the cell
-  else if (cell.classList.contains("flagged")) {
-    cell.classList.add("question-marked");
-    cell.classList.remove("flagged");
+  else if (cell.classList.contains("icon-flag")) {
+    cell.classList.add("icon-question");
+    cell.classList.remove("icon-flag");
     mineCount++;
     document.querySelector("#mine-count").textContent =
       mineCount + ` mines left`;
-  } else if (cell.classList.contains("question-marked")) {
-    cell.classList.remove("question-marked");
+  } else if (cell.classList.contains("icon-question")) {
+    cell.classList.remove("icon-question");
   }
 }
 
@@ -158,9 +164,10 @@ function disableCells() {
 function revealMines() {
   var cells = document.getElementsByTagName("td");
   for (var i = 0; i < cells.length; i++) {
-    if (cells[i].getAttribute("data-mine") === "true") {
-      cells[i].textContent = "X";
-      cells[i].classList.remove("not-revealed");
+    var cell = cells[i];
+    if (cell.getAttribute("data-mine") === "true") {
+      cell.classList.remove("not-revealed");
+      cell.classList.add("revealed", "mine", "icon-bomb");
     }
   }
 }

@@ -95,11 +95,18 @@ function handleRightClick(event) {
   if (
     !cell.classList.contains("flagged") &&
     !cell.classList.contains("question-marked")
-  )
-    cell.classList.add("flagged"); // add flagged class to the cell
+  ) {
+    cell.classList.add("flagged");
+    mineCount--;
+    document.querySelector("#mine-count").textContent =
+      mineCount + ` mines left`;
+  } // add flagged class to the cell
   else if (cell.classList.contains("flagged")) {
     cell.classList.add("question-marked");
     cell.classList.remove("flagged");
+    mineCount++;
+    document.querySelector("#mine-count").textContent =
+      mineCount + ` mines left`;
   } else if (cell.classList.contains("question-marked")) {
     cell.classList.remove("question-marked");
   }

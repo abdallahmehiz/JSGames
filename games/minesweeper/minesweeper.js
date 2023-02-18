@@ -1,6 +1,6 @@
 // define global variable grid
 var grid;
-
+let gameOver = false;
 function generateGrid(length, width, mines) {
   grid = [];
   // create a grid
@@ -52,22 +52,27 @@ function renderTable(table) {
 }
 
 function handleClick(event) {
+  if (gameOver) {
+    return;
+  }
+
   var cell = event.target;
   var isMine = cell.getAttribute("data-mine") === "true";
   var x = parseInt(cell.getAttribute("data-x"));
   var y = parseInt(cell.getAttribute("data-y"));
 
   if (isMine) {
-    cell.textContent = "X";
+    gameOver = true;
+    revealMines();
+    disableCells();
   } else {
     var count = countAdjacentMines(x, y);
     cell.textContent = count;
+    cell.classList.remove("not-revealed");
     if (count === 0) {
-      clearAdjacentCells(x, y);
+      clearAdjacentZeros(x, y);
     }
   }
-
-  cell.classList.remove("not-revealed"); // remove the not-revealed class from the cell
 }
 
 function countAdjacentMines(x, y) {
@@ -88,7 +93,7 @@ function countAdjacentMines(x, y) {
   return count;
 }
 
-function clearAdjacentCells(x, y) {
+function clearAdjacentZeros(x, y) {
   for (var i = x - 1; i <= x + 1; i++) {
     for (var j = y - 1; j <= y + 1; j++) {
       if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length) {
@@ -98,10 +103,27 @@ function clearAdjacentCells(x, y) {
           cell.textContent = count;
           cell.classList.remove("not-revealed");
           if (count === 0) {
-            clearAdjacentCells(i, j);
+            clearAdjacentZeros(i, j);
           }
         }
       }
+    }
+  }
+}
+
+function disableCells() {
+  var cells = document.getElementsByTagName("td");
+  for (var i = 0; i < cells.length; i++) {
+    cells[i].removeEventListener("click", handleClick);
+  }
+}
+
+function revealMines() {
+  var cells = document.getElementsByTagName("td");
+  for (var i = 0; i < cells.length; i++) {
+    if (cells[i].getAttribute("data-mine") === "true") {
+      cells[i].textContent = "X";
+      cells[i].classList.remove("not-revealed");
     }
   }
 }

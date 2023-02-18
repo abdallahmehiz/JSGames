@@ -53,6 +53,7 @@ function renderTable(table) {
 }
 
 function handleClick(event) {
+  // Prevent click if the game is over
   if (gameOver) {
     return;
   }
@@ -62,17 +63,29 @@ function handleClick(event) {
   var x = parseInt(cell.getAttribute("data-x"));
   var y = parseInt(cell.getAttribute("data-y"));
 
-  if (isMine) {
-    gameOver = true;
-    revealMines();
-    disableCells();
-  } else {
-    var count = countAdjacentMines(x, y);
-    cell.textContent = count;
-    cell.classList.remove("not-revealed");
-    if (count === 0) {
-      clearAdjacentZeros(x, y);
+  if (event.button === 0) {
+    // left click
+    if (isMine) {
+      cell.textContent = "X";
+      cell.classList.remove("not-revealed");
+      cell.classList.add("revealed", "mine");
+      gameOver = true;
+      alert("You lose!");
+    } else {
+      var count = countAdjacentMines(x, y);
+      cell.textContent = count;
+      cell.classList.remove("not-revealed");
+      cell.classList.add("revealed");
+      if (count === 0) {
+        clearAdjacentZeros(x, y);
+      }
+      // Check for win
+      checkForWin();
     }
+  } else if (event.button === 2) {
+    // right click
+    event.preventDefault();
+    cell.classList.toggle("flagged");
   }
 }
 
@@ -142,5 +155,23 @@ function revealMines() {
       cells[i].textContent = "X";
       cells[i].classList.remove("not-revealed");
     }
+  }
+}
+
+function checkForWin() {
+  var cells = document.getElementsByTagName("td");
+  var count = 0;
+  for (var i = 0; i < cells.length; i++) {
+    if (
+      cells[i].getAttribute("data-mine") === "false" &&
+      cells[i].classList.contains("not-revealed")
+    ) {
+      count++;
+    }
+  }
+  if (count === 0) {
+    alert("You win!");
+    disableCells();
+    revealMines();
   }
 }

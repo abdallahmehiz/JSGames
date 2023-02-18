@@ -62,6 +62,9 @@ function handleClick(event) {
   } else {
     var count = countAdjacentMines(x, y);
     cell.textContent = count;
+    if (count === 0) {
+      clearAdjacentCells(x, y);
+    }
   }
 
   cell.classList.remove("not-revealed"); // remove the not-revealed class from the cell
@@ -83,4 +86,22 @@ function countAdjacentMines(x, y) {
     }
   }
   return count;
+}
+
+function clearAdjacentCells(x, y) {
+  for (var i = x - 1; i <= x + 1; i++) {
+    for (var j = y - 1; j <= y + 1; j++) {
+      if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length) {
+        var cell = document.querySelector(`[data-x="${i}"][data-y="${j}"]`);
+        if (cell.classList.contains("not-revealed")) {
+          var count = countAdjacentMines(i, j);
+          cell.textContent = count;
+          cell.classList.remove("not-revealed");
+          if (count === 0) {
+            clearAdjacentCells(i, j);
+          }
+        }
+      }
+    }
+  }
 }

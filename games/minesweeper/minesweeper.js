@@ -1,46 +1,39 @@
-function showDifficulties() {
-  document.getElementById("difficulty-options").classList.toggle("hidden");
-}
-
 function showCustomInput() {
   document.getElementById("custom-input").classList.toggle("hidden");
 }
-let difficulty = [9, 9, 10];
+let currentDifficulty = 0;
+function changeDifficulty(difficulty) {
+  if (difficulty > 3 || difficulty < 0) {
+    alert("Invalid difficulty");
+    return;
+  }
+  currentDifficulty = difficulty;
+  if (difficulty === 3) {
+    showCustomInput();
+  } else {
+    document.getElementById("custom-input").classList.add("hidden");
+  }
+}
 function setDifficulty(setdifficulty) {
   switch (setdifficulty) {
     case 0: // easy
-      difficulty = [9, 9, 10];
-      break;
+      return [9, 9, 10];
     case 1: // medium
-      difficulty = [16, 16, 40];
-      break;
+      return [16, 16, 40];
     case 2: // hard
-      difficulty = [16, 30, 99];
-      break;
+      return [16, 30, 99];
     case 3: // custom
       var length = parseInt(document.getElementById("length").value);
       var width = parseInt(document.getElementById("width").value);
       var mines = parseInt(document.getElementById("mines").value);
-      if (length < 9 || length > 24) {
-        alert("Length must be between 9 and 24");
-        return;
-      }
-      if (width < 9 || width > 30) {
-        alert("Width must be between 9 and 30");
-        return;
-      }
-      if (mines < 10 || mines > 668) {
-        alert("Mines must be between 10 and 668");
-        return;
-      }
-      difficulty = [length, width, mines];
-      break;
+      return [length, width, mines];
     default:
-      return;
+      return [9, 9, 10];
   }
 }
 
 function startGame() {
+  let difficulty = setDifficulty(currentDifficulty);
   var table = createTable(difficulty[0], difficulty[1], difficulty[2]);
   renderTable(table);
   gameOver = false;

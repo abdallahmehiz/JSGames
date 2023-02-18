@@ -37,9 +37,25 @@ th {
 .menu {
   display: flex;
   flex-direction: column;
-  margin: 1rem;
+  gap: 0.5rem;
+  width: 328px;
 }
 
-.menu * {
-  margin: 0.5rem;
+.input {
+  display: flex;
+  flex-direction: column;
+  width: 105px;
+}
+.custom-options {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.difficulty-options {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+.difficulty-options button {
+  width: calc((100% - 1.5rem) / 4);
 }

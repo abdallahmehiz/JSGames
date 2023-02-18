@@ -15,25 +15,29 @@
     <div class="menu">
       <button class="new-game" onclick="startGame()">New Game</button>
       <!-- make difficulty selection -->
-      <div class="difficulty-selection">
-        <button onclick="showDifficulties()">Difficulty</button>
-        <div id="difficulty-options" class="hidden">
-          <button id="easy" onclick="setDifficulty(0)">Easy</button>
-          <button id="medium" onclick="setDifficulty(1)">Medium</button>
-          <button id="hard" onclick="setDifficulty(2)">Hard</button>
-          <button id="custom" onclick="setDifficulty(3), showCustomInput()">
+        <div class="difficulty-options">
+          <button id="easy" onclick="changeDifficulty(0)">Easy</button>
+          <button id="medium" onclick="changeDifficulty(1)">Medium</button>
+          <button id="hard" onclick="changeDifficulty(2)">Hard</button>
+          <button id="custom" onclick="changeDifficulty(3)">
             Custom
           </button>
         </div>
       </div>
       <div id="custom-input" class="hidden">
         <div class="custom-options">
-          <label for="length">Length</label>
-          <input type="number" id="length" />
-          <label for="width">Width</label>
-          <input type="number" id="width" />
-          <label for="mines">Mines</label>
-          <input type="number" id="mines" />
+          <div class="input">
+            <label for="length">Length</label>
+            <input type="number" id="length" />
+          </div>
+          <div  class="input">
+            <label for="width">Width</label>
+            <input type="number" id="width" />
+          </div>
+          <div class="input">
+            <label for="mines">Mines</label>
+            <input type="number" id="mines" />
+          </div>
         </div>
       </div>
       <span id="mine-count"></span>

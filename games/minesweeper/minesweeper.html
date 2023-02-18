@@ -14,20 +14,32 @@
     <h1>Minesweeper</h1>
     <div class="menu">
       <button class="new-game" onclick="startGame()">New Game</button>
+      <!-- make difficulty selection -->
+      <div class="difficulty-selection">
+        <button onclick="showDifficulties()">Difficulty</button>
+        <div id="difficulty-options" class="hidden">
+          <button id="easy" onclick="setDifficulty(0)">Easy</button>
+          <button id="medium" onclick="setDifficulty(1)">Medium</button>
+          <button id="hard" onclick="setDifficulty(2)">Hard</button>
+          <button id="custom" onclick="setDifficulty(3), showCustomInput()">
+            Custom
+          </button>
+        </div>
+      </div>
+      <div id="custom-input" class="hidden">
+        <div class="custom-options">
+          <label for="length">Length</label>
+          <input type="number" id="length" />
+          <label for="width">Width</label>
+          <input type="number" id="width" />
+          <label for="mines">Mines</label>
+          <input type="number" id="mines" />
+        </div>
+      </div>
       <span id="mine-count"></span>
     </div>
     <div class="game">
       <div class="grid" id="game"></div>
     </div>
-    <script>
-      function startGame() {
-        var table = createTable(10, 10, 10);
-        renderTable(table);
-        gameOver = false;
-        mineCount = 10;
-        document.getElementById("mine-count").innerHTML =
-          mineCount + " mines left";
-      }
-    </script>
   </body>
 </html>

@@ -1,3 +1,53 @@
+function showDifficulties() {
+  document.getElementById("difficulty-options").classList.toggle("hidden");
+}
+
+function showCustomInput() {
+  document.getElementById("custom-input").classList.toggle("hidden");
+}
+let difficulty = [9, 9, 10];
+function setDifficulty(setdifficulty) {
+  switch (setdifficulty) {
+    case 0: // easy
+      difficulty = [9, 9, 10];
+      break;
+    case 1: // medium
+      difficulty = [16, 16, 40];
+      break;
+    case 2: // hard
+      difficulty = [16, 30, 99];
+      break;
+    case 3: // custom
+      var length = parseInt(document.getElementById("length").value);
+      var width = parseInt(document.getElementById("width").value);
+      var mines = parseInt(document.getElementById("mines").value);
+      if (length < 9 || length > 24) {
+        alert("Length must be between 9 and 24");
+        return;
+      }
+      if (width < 9 || width > 30) {
+        alert("Width must be between 9 and 30");
+        return;
+      }
+      if (mines < 10 || mines > 668) {
+        alert("Mines must be between 10 and 668");
+        return;
+      }
+      difficulty = [length, width, mines];
+      break;
+    default:
+      return;
+  }
+}
+
+function startGame() {
+  var table = createTable(difficulty[0], difficulty[1], difficulty[2]);
+  renderTable(table);
+  gameOver = false;
+  let mineCount = difficulty[2];
+  document.getElementById("mine-count").innerHTML = mineCount + " mines left";
+}
+
 // define global variable grid
 var grid;
 let gameOver = false;

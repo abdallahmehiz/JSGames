@@ -22,6 +22,21 @@ th {
 }
 
 .icon-flag,
-.icon-question {
+.icon-question,
+.icon-bomb {
   color: #dcd8c0;
+}
+
+.hidden {
+  display: none;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.menu * {
+  margin: 0.5rem;
 }

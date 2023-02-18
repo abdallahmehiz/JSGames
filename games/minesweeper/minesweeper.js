@@ -8,9 +8,12 @@ function changeDifficulty(difficulty) {
     return;
   }
   currentDifficulty = difficulty;
-  if (difficulty === 3) {
+  if (
+    difficulty === 3 &&
+    document.getElementById("custom-input").classList.contains("hidden")
+  ) {
     showCustomInput();
-  } else {
+  } else if (difficulty !== 3) {
     document.getElementById("custom-input").classList.add("hidden");
   }
 }
@@ -26,6 +29,14 @@ function setDifficulty(setdifficulty) {
       var length = parseInt(document.getElementById("length").value);
       var width = parseInt(document.getElementById("width").value);
       var mines = parseInt(document.getElementById("mines").value);
+      if (mines > length * width) {
+        alert("Too many mines");
+        return [9, 9, 10];
+      }
+      if (isNaN(length) || isNaN(width) || isNaN(mines)) {
+        alert("Invalid input");
+        return [9, 9, 10];
+      }
       return [length, width, mines];
     default:
       return [9, 9, 10];

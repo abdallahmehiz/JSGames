@@ -1,3 +1,5 @@
+var mineCount;
+
 function showCustomInput() {
   document.getElementById("custom-input").classList.toggle("hidden");
 }
@@ -48,7 +50,7 @@ function startGame() {
   var table = createTable(difficulty[0], difficulty[1], difficulty[2]);
   renderTable(table);
   gameOver = false;
-  let mineCount = difficulty[2];
+  mineCount = difficulty[2];
   document.getElementById("mine-count").innerHTML = mineCount + " mines left";
 }
 

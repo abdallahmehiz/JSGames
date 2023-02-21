@@ -197,7 +197,9 @@ function clearAdjacentZeros(x, y) {
     for (var j = y - 1; j <= y + 1; j++) {
       if (i >= 0 && i < grid.length && j >= 0 && j < grid[0].length) {
         var cell = document.querySelector(`[data-x="${i}"][data-y="${j}"]`);
-        if (cell.classList.contains("not-revealed")) {
+        if (cell.classList.contains("not-revealed")
+            && !cell.classList.contains("icon-flag")
+            && !cell.classList.contains("icon-question")) {
           var count = countAdjacentMines(i, j);
           cell.textContent = count;
           cell.classList.remove("not-revealed");

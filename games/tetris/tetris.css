@@ -1,0 +1,20 @@
+#game {
+  display: grid;
+  grid-template-areas: "gameStatis gameScreen gameScreen";
+  gap: 20px;
+}
+
+#gameStates {
+  grid-area: "gameStats";
+}
+
+#gameScreen {
+  grid-area: "gameScreen";
+}
+
+td {
+  background-color: #454138;
+  border: 1px solid #dcd8c0;
+  width: 10px;
+  height: 10px;
+}

@@ -141,6 +141,7 @@ function movePieceDown() {
 
 function renderGameGrid(rows, columns) {
   let gameScreen = document.getElementById("gameScreen");
+  gameScreen.innerHTML = "";
   let table = document.createElement("table");
   table.id = "gameTable";
   gameScreen.appendChild(table);

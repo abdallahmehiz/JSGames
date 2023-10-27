@@ -104,7 +104,6 @@ async function startGame() {
 }
 
 function renderCurrentPiece() {
-  let gameTable = document.getElementById("gameTable");
   let piece = currentPiece.piece;
   let position = currentPiece.position;
   for (let i = 0; i < piece["pieceGrid"].length; i++) {
@@ -124,7 +123,6 @@ function renderCurrentPiece() {
 function movePieceDown() {
   let piece = currentPiece.piece;
   let position = currentPiece.position;
-  let gameTable = document.getElementById("gameTable");
   for (let i = 0; i < piece["pieceGrid"].length; i++) {
     for (let j = 0; j < piece["pieceGrid"][i].length; j++) {
       let cell = document.getElementById(

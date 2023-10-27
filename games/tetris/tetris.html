@@ -10,7 +10,7 @@
     <script src="tetris.js"></script>
     <title>JSGames: Tetris</title>
   </head>
-  <body onload="generateGame()">
+  <body onload="renderGame()">
     <h1>Tetris</h1>
     <div id="game">
       <div id="gameStats">
@@ -21,6 +21,9 @@
         <div id="score">
           <div id="totalScore">Score</div>
           <div id="lines">010 Lines</div>
+        </div>
+        <div id="gameMenu">
+          <button id="start" onclick="startGame()">Start</button>
         </div>
       </div>
       <div id="gameScreen"></div>

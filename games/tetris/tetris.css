@@ -18,3 +18,39 @@ td {
   width: 10px;
   height: 10px;
 }
+
+/* Pieces classes */
+.piece {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 1px solid #dcd8c0;
+}
+
+.I {
+  background-color: #716A5C;
+}
+
+.J {
+  background-color: #DCC9A9;
+}
+
+.J {
+  background-color: #DCC9A9;
+}
+
+.O {
+  background-color: #A39B8B;
+}
+
+.S {
+  background-color: #BAA898;
+}
+
+.Z {
+  background-color: #BAA898;
+}
+
+.T {
+  background-color: #7D7461;
+}

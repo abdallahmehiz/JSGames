@@ -95,6 +95,7 @@ async function startGame() {
   let gameOver = false;
   renderGame();
   let gameTable = document.getElementById("gameTable");
+  document.getElementById("start").classList.add("disabled");
   while (!gameOver) {
     {
       movePieceDown(false);

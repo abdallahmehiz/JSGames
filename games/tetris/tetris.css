@@ -19,6 +19,11 @@ td {
   height: 10px;
 }
 
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* Pieces classes */
 .piece {
   position: absolute;
